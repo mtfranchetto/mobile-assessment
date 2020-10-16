@@ -1,11 +1,23 @@
-# Mobile developer Assessment
+# FriendFinder
 This assessment is designed to evaluate the technical and organizational skills of a candidate.
 
-## The exercises
+## The exercise
+You want to meet your friends, but you are a lazy person, so you want to know which is the nearest friend to you.
 
-- [FriendToDo](01-FriendTodo.md)
-- [FriendFinder](02-FriendFinder.md)
+You can see your friends' position from [here](https://jsonplaceholder.typicode.com/users)
 
+The app will show the list of friends sorted by the distance from your current location and the friend’s position. 
+
+Each line is showing the friend's name, its distance from you, and a button to start the navigation to the friend
+
+When a friend is selected, the details are shown:
+- Name
+- Address
+- A button to call your friend
+- A button to start the navigation 
+
+## Bonus point (optional)
+ - Add the possibility to see the friends' position on a map.
 ## FAQ
 **Q**: Should I develop it for Android and iOS or use a multiplatform framework?
 
