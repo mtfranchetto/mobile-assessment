@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { todosReducer } from '../todos'
 import { usersReducer } from '../users'
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     users: usersReducer,
     todos: todosReducer,

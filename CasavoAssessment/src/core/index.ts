@@ -11,4 +11,5 @@ const axiosClient = axios.create({
   timeout: 20000,
 });
 
+export { store } from './store';
 export const httpClient = new HTTPClient(axiosClient);

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect} from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text, ListRenderItemInfo } from 'react-native';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
@@ -15,7 +15,7 @@ const UserRow = ({ user, onPress }: UserRowProps) => {
   }, [onPress, user]);
   return (
     <TouchableOpacity onPress={cb} testID={`users-${user.id}`}>
-      <Text>{user.name}</Text>
+      <Text style={{ color: 'black' }}>{user.name}</Text>
     </TouchableOpacity>
   );
 }

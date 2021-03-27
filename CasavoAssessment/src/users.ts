@@ -16,12 +16,15 @@ export const fetchUsersList = createAsyncThunk(
   async () => {
     const { data } = await httpClient.get('/users');
     const users = (data || []) as any[];
-    return users.map<User>(user => ({
-      name: user.name,
-      id: user.id,
-      address: `${user.street}, ${user.suite}, ${user.city}, ${user.zipcode}`,
-      phoneNumber: user.phone,
-    }));
+    return users.map<User>(user => {
+      const { street, suite, city, zipcode } = user.address;
+      return {
+        name: user.name,
+        id: user.id,
+        address: `${street}, ${suite}, ${city}, ${zipcode}`,
+        phoneNumber: user.phone,
+      };
+    });
   });
 
 type UsersList = {
@@ -45,7 +48,7 @@ const { reducer, actions } = createSlice({
     }
   },
   extraReducers: builder => {
-    builder.addCase(fetchUsersList.pending, (state, action) => {
+    builder.addCase(fetchUsersList.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(fetchUsersList.fulfilled, (state, action) => {
@@ -53,7 +56,7 @@ const { reducer, actions } = createSlice({
       state.rejected = false;
       state.list = action.payload;
     });
-    builder.addCase(fetchUsersList.rejected, (state, action) => {
+    builder.addCase(fetchUsersList.rejected, (state) => {
       state.loading = false;
       state.rejected = true;
       state.list = [];
