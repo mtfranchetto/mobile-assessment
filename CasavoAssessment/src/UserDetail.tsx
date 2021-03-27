@@ -1,14 +1,27 @@
 import React, { useCallback, useEffect } from 'react';
 import { Button, Linking, ListRenderItemInfo, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import CheckBox from '@react-native-community/checkbox';
 import { useAppDispatch, useAppSelector } from './core/hooks';
 import { todosStyles } from './styles';
-import { fetchTodosForUser } from './todos';
+import { addTodoForUser, deleteTodo, fetchTodosForUser, setTodoCompletion } from './todos';
 import { Todo } from './types';
 
 const TodoRow = ({ completed, id, title, userId }: Todo) => {
+  const dispatch = useAppDispatch();
+  const toggleTodo = useCallback(() => {
+    dispatch(setTodoCompletion({ id, completed: !completed }));
+  }, [completed]);
+  const deleteCallback = useCallback(() => {
+    dispatch(deleteTodo(id));
+  }, [id]);
+
   return (
-    <Text style={todosStyles.title}>{title}</Text>
+    <>
+      <Text style={todosStyles.title}>{title}</Text>
+      <CheckBox value={completed} onValueChange={toggleTodo} />
+      <Button title={'X'} onPress={deleteCallback} />
+    </>
   )
 }
 
