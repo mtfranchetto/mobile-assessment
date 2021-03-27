@@ -4,6 +4,8 @@ import { User } from './types';
 
 /**
  * TODO: 
+ * - there's should a typing for data received from the backend and I/O validation,
+ *  like `io-ts`
  * - address parsing is done in a really poor way
  *    a real case would also handle missing parts and different types of address
  * - test this function by passing an mocked http client to the function as parameter
@@ -24,7 +26,7 @@ export const fetchUsersList = createAsyncThunk(
 
 type UsersList = {
   loading: boolean;
-  selectedUserId: number;
+  selectedUserId: number | null;
   list: User[];
   rejected: boolean;
 }
@@ -33,7 +35,7 @@ const { reducer, actions } = createSlice({
   name: 'users',
   initialState: {
     loading: false,
-    selectedUserId: 0,
+    selectedUserId: null,
     list: [],
     rejected: false,
   } as UsersList,

@@ -1,17 +1,5 @@
-import { User } from '../types';
 import { fetchUsersList, selectUser, usersReducer } from '../users';
-
-const mockUsersList: User[] = [{
-  address: 'street number 1',
-  id: 1,
-  name: 'Johnny',
-  phoneNumber: '3882229',
-}, {
-  address: 'street number 2',
-  id: 2,
-  name: 'Jenny',
-  phoneNumber: '7376293',
-}];
+import { mockUsersList } from '../__fixtures__/users';
 
 describe('Given a usersReducer', () => {
   const subject = usersReducer;
@@ -26,7 +14,7 @@ describe('Given a usersReducer', () => {
 
   describe('when the list of users is retrieved', () => {
     it('should save it', () => {
-      const state = subject(undefined, fetchUsersList.fulfilled(mockUsersList, undefined));
+      const state = subject(undefined, fetchUsersList.fulfilled(mockUsersList, ''));
 
       expect(state.loading).toBe(false);
       expect(state.list).toEqual(mockUsersList);
