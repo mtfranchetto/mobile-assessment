@@ -8,6 +8,7 @@
  * @format
  */
  import 'react-native-gesture-handler';
+ enableScreens();
  import React from 'react';
  import {
    SafeAreaView,
@@ -26,6 +27,7 @@
    LearnMoreLinks,
    ReloadInstructions,
  } from 'react-native/Libraries/NewAppScreen';
+import { enableScreens } from 'react-native-screens';
 
  const Section: React.FC<{
    title: string;
