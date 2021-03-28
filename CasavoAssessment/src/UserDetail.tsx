@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
-import { Button, Linking, ListRenderItemInfo, Text } from 'react-native';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import { Button, Linking, ListRenderItemInfo, Text, TextInput } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
 import { useAppDispatch, useAppSelector } from './core/hooks';
@@ -25,6 +25,32 @@ const TodoRow = ({ completed, id, title, userId }: Todo) => {
   )
 }
 
+const AddTodoFooter = memo(({ userId }: { userId: number }) => {
+  const dispatch = useAppDispatch();
+  const [todoText, setTodoText] = useState('');
+  const addTodo = useCallback(() => {
+    if (todoText) {
+      dispatch(addTodoForUser({ userId, title: todoText }));
+      setTodoText('');
+    }
+  }, [todoText, userId, setTodoText]);
+
+  const updateTodoText = useCallback((newText: string) => {
+    setTodoText(newText);
+  }, [setTodoText]);
+
+  return (
+    <>
+      <TextInput
+        testID={'todo-input'}
+        value={todoText}
+        onChangeText={updateTodoText}
+      />
+      <Button title="Add todo" onPress={addTodo} />
+    </>
+  );
+});
+
 export const UserDetail = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => {
@@ -49,6 +75,7 @@ export const UserDetail = () => {
       keyExtractor={todo => todo.id}
       data={todos}
       renderItem={renderRow}
+      ListFooterComponent={<AddTodoFooter userId={user!.id} />}
     />
-  )
+  );
 };

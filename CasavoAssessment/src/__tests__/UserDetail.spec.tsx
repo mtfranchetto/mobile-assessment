@@ -16,7 +16,10 @@ const store = mockStore({
     rejected: false,
     list: mockUsersList,
     selectedUserId: 1,
-  }
+  },
+  todos: {
+    list: [],
+  },
 });
 
 describe('Given a UserDetail component', () => {
@@ -36,6 +39,35 @@ describe('Given a UserDetail component', () => {
       fireEvent.press(getByText('Call'));
 
       expect(Linking.openURL).toHaveBeenCalledWith('tel:3882229');
+    });
+  });
+
+  describe('when adding a todo', () => {
+    describe('when some text has been filled', () => {
+      it('should save the todo', () => {
+        const { getByTestId, getByText } = render(<Provider store={store}><UserDetail /></Provider>);
+        fireEvent.changeText(getByTestId('todo-input'), 'example todo');
+        fireEvent.press(getByText('Add todo'));
+
+        expect(store.dispatch).toHaveBeenCalledTimes(2);
+      });
+
+      it('should reset the input field', () => {
+        const { getByTestId, getByText } = render(<Provider store={store}><UserDetail /></Provider>);
+        fireEvent.changeText(getByTestId('todo-input'), 'example todo');
+        fireEvent.press(getByText('Add todo'));
+
+        expect(() => getByText('example todo')).toThrowError();
+      });
+    });
+
+    describe('when no text has been filled', () => {
+      it('should not do anything', () => {
+        const { getByText } = render(<Provider store={store}><UserDetail /></Provider>);
+        fireEvent.press(getByText('Add todo'));
+
+        expect(store.dispatch).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });
