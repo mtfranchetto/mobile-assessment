@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from './core/hooks';
 import { User } from './types';
 import { fetchUsersList, selectUser } from './users';
 import { USER_DETAIL_SCREEN } from './constants';
+import { fetchUserPosition } from './gps';
 
 type UserRowProps = { user: User, onPress: (user: User) => void };
 
@@ -27,6 +28,7 @@ export const UsersList = () => {
 
   useEffect(() => {
     dispatch(fetchUsersList());
+    dispatch(fetchUserPosition());
   }, []);
 
   const onUserPress = useCallback((user: User) => {
