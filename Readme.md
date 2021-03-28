@@ -8,6 +8,10 @@ For the dependency/services management I didn't setup anything particular for th
 
 With more time I would have written some services for GPS and linking like I did for the HTTP client to allow a proper inversion of control for the functions I wrote, and open up the possibility to future use cases like decorators over services (e.g. adding authentication over the http client).
 
+## Run
+
+`cd CasavoAssessment && npx react-native run-ios`
+
 ## Demo
 
 ![Demo GIF](./demo.gif)
