@@ -10,7 +10,7 @@ With more time I would have written some services for GPS and linking like I did
 
 ## Run
 
-`cd CasavoAssessment && npx react-native run-ios`
+`cd CasavoAssessment && npx pod-install && npx react-native run-ios`
 
 ## Demo
 
