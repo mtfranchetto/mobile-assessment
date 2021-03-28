@@ -2,7 +2,7 @@
 
 ## Rationale
 
-Since the two exercises (TODOs and friends finder) are very similar I decided not to do two separate projects (or screens) but include both under the same views, with a list and the detail.
+As the two exercises can share a lot of code I decided to create one project including both views (a list and a detail) rather than two distinct ones for the sake of code reuse and simplicity.
 
 For the dependency/services management I didn't setup anything particular for the simple use case. For a possible evolution of the code I would go with an IOC container like [inversify](https://inversify.io/) that will allow a greater control over the dependencies of the application.
 

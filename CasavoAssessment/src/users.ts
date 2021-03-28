@@ -6,8 +6,8 @@ import { Coordinates, User } from './types';
 
 /**
  * TODO: 
- * - there's should a typing for data received from the backend and I/O validation,
- *  like `io-ts`
+ * - add a type for data received from the backend
+ * - payload schema validation with `io-ts`
  * - address parsing is done in a really poor way
  *    a real case would also handle missing parts and different types of address
  * - test this function by passing an mocked http client to the function as parameter
