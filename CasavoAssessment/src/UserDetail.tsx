@@ -1,5 +1,8 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import { Button, Linking, ListRenderItemInfo, Text, TextInput } from 'react-native';
+import {
+  Button, Linking, ListRenderItemInfo,
+  Text, TextInput, Platform,
+} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
 import { useAppDispatch, useAppSelector } from './core/hooks';
@@ -63,6 +66,10 @@ export const UserDetail = () => {
   }, [user]);
 
   const callUser = useCallback(() => Linking.openURL(`tel:${user!.phoneNumber}`), [user]);
+  const openDirections = useCallback(() => {
+    const scheme = Platform.OS === 'ios' ? 'maps' : 'geo';
+    Linking.openURL(`${scheme}:${user!.location.latitude},${user!.location.longitude}`);
+  }, [user]);
   const renderRow = useCallback(({ item }: ListRenderItemInfo<Todo>) => (
     <TodoRow {...item} />
   ), []);
@@ -70,7 +77,10 @@ export const UserDetail = () => {
   return (
     <FlatList
       ListHeaderComponent={() => ( // this should be extracted for proper memoization
-        <Button title="Call" onPress={callUser} />
+        <>
+          <Button title="Call" onPress={callUser} />
+          <Button title="Get directions" onPress={openDirections} />
+        </>
       )}
       keyExtractor={todo => todo.id}
       data={todos}

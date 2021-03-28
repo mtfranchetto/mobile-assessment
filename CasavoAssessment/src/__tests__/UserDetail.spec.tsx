@@ -1,6 +1,6 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import { Linking } from 'react-native';
+import { Linking, Platform } from 'react-native';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk'
 import { fireEvent, render } from '@testing-library/react-native';
@@ -8,6 +8,7 @@ import { mockUsersList } from '../__fixtures__/users';
 import { UserDetail } from '../UserDetail';
 
 Linking.openURL = jest.fn();
+Platform.OS = 'ios';
 
 const mockStore = configureStore([thunk]);
 const store = mockStore({
@@ -22,14 +23,18 @@ const store = mockStore({
   },
 });
 
+
 describe('Given a UserDetail component', () => {
   beforeEach(() => {
     store.dispatch = jest.fn();
   });
 
-  describe.skip('when asking directions to reach the user', () => {
+  describe('when asking directions to reach the user', () => {
     it('should open the map pointing to that address', () => {
+      const { getByText } = render(<Provider store={store}><UserDetail /></Provider>);
+      fireEvent.press(getByText('Get directions'));
 
+      expect(Linking.openURL).toHaveBeenCalledWith('maps:1,1');
     });
   });
 
