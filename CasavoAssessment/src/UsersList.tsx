@@ -16,11 +16,11 @@ const UserRow = ({ user, onPress }: UserRowProps) => {
     onPress(user);
   }, [onPress, user]);
   return (
-    <TouchableOpacity onPress={cb} testID={`users-${user.id}`}>
+    <TouchableOpacity onPress={cb} testID={`users-${user.id}`} style={usersStyles.listRow}>
       <Text style={usersStyles.listName}>{user.name}</Text>
-      <Text style={usersStyles.listName}>{user.address}</Text>
-      <Text style={usersStyles.listName}>
-        {user.distance ? `${user.distance.toFixed(2)} km` : 'N/A'}
+      <Text style={usersStyles.listAddress}>{user.address}</Text>
+      <Text style={usersStyles.listDistance}>
+        Distance: {user.distance ? `${user.distance.toFixed(2)} km` : 'N/A'}
       </Text>
     </TouchableOpacity>
   );
