@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from './core/hooks';
 import { todosStyles, usersStyles } from './styles';
 import { addTodoForUser, deleteTodo, fetchTodosForUser, setTodoCompletion } from './todos';
 import { Todo } from './types';
+import Loading from './Loading';
 
 const TodoRow = ({ completed, id, title }: Todo) => {
   const dispatch = useAppDispatch();
@@ -62,7 +63,7 @@ export const UserDetail = () => {
     const { list, selectedUserId } = state.users;
     return list.find(u => u.id === selectedUserId);
   });
-  const { list: todos } = useAppSelector(state => state.todos);
+  const { list: todos, loading } = useAppSelector(state => state.todos);
   useEffect(() => {
     dispatch(fetchTodosForUser(user!.id));
   }, [user]);
@@ -82,7 +83,10 @@ export const UserDetail = () => {
     <TodoRow {...item} />
   ), []);
 
-  return (
+  /**
+   * TODO: handle UI when `rejected`
+   */
+  return loading ? <Loading /> : (
     <FlatList
       ListHeaderComponent={() => ( // this should be extracted for proper memoization
         <>

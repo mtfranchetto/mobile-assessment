@@ -8,6 +8,7 @@ import { fetchUsersList, selectUser } from './users';
 import { USER_DETAIL_SCREEN } from './constants';
 import { fetchUserPosition } from './gps';
 import { usersStyles } from './styles';
+import Loading from './Loading';
 
 type UserRowProps = { user: User, onPress: (user: User) => void };
 
@@ -29,7 +30,7 @@ const UserRow = ({ user, onPress }: UserRowProps) => {
 export const UsersList = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const { list } = useAppSelector(state => state.users);
+  const { list, loading } = useAppSelector(state => state.users);
 
   useEffect(() => {
     dispatch(fetchUsersList());
@@ -47,7 +48,10 @@ export const UsersList = () => {
 
   const keyExtractor = useCallback((user: User) => user.id.toString(), []);
 
-  return (
+  /**
+   * TODO: handle UI when `rejected`
+   */
+  return loading ? <Loading /> : (
     <FlatList
       data={list}
       keyExtractor={keyExtractor}
