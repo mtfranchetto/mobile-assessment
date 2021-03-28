@@ -3,6 +3,8 @@ export type User = {
   name: string;
   phoneNumber: string;
   address: string;
+  location: Coordinates;
+  distance: number | null;
 }
 
 export type Coordinates = {

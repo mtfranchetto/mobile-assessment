@@ -36,8 +36,6 @@ describe('Given a UsersList component', () => {
        */
       expect(store.dispatch).toHaveBeenCalled();
     });
-
-    it.skip('should request the user gps position');
   });
 
   describe('when a user is selected', () => {

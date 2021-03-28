@@ -1,3 +1,4 @@
+import { fetchUserPosition } from '../gps';
 import { fetchUsersList, selectUser, usersReducer } from '../users';
 import { mockUsersList } from '../__fixtures__/users';
 
@@ -20,19 +21,60 @@ describe('Given a usersReducer', () => {
       expect(state.list).toEqual(mockUsersList);
     });
 
-    describe.skip('when the current user location is known', () => {
+    describe('when the current user location is known', () => {
+      /**
+       * a lot of other tests should be added here,
+       * like ensuring that nothing happens is the location is acquired
+       * but no users list has been loaded yet
+       */
       it('should set the distance of every user', () => {
+        const state = subject({
+          list: mockUsersList,
+          loading: false,
+          rejected: false,
+          selectedUserId: null,
+          userPosition: null,
+        }, fetchUserPosition.fulfilled({
+          latitude: 40,
+          longitude: 50,
+        }, ''));
 
+        const distances = state.list.map(user => user.distance).filter(Boolean);
+        expect(distances).toHaveLength(2);
       });
       it('should order the users by distance', () => {
+        const state = subject({
+          list: mockUsersList,
+          loading: false,
+          rejected: false,
+          selectedUserId: null,
+          userPosition: null,
+        }, fetchUserPosition.fulfilled({
+          latitude: 40,
+          longitude: 50,
+        }, ''));
 
+        expect(state.list[0].id).toBe(2);
+        expect(state.list[1].id).toBe(1);
       });
     });
   });
 
-  describe.skip('when the user current location is acquired', () => {
+  describe('when the user current location is acquired before the list of users', () => {
     it('should order the users list by distance', () => {
-
+      const state = subject({
+        list: [],
+        loading: false,
+        rejected: false,
+        selectedUserId: null,
+        userPosition: {
+          latitude: 40,
+          longitude: 50,
+        },
+      }, fetchUsersList.fulfilled(mockUsersList, ''));
+      
+      expect(state.list[0].id).toBe(2);
+      expect(state.list[1].id).toBe(1);
     });
   });
 

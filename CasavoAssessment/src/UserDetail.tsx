@@ -7,7 +7,7 @@ import { todosStyles } from './styles';
 import { addTodoForUser, deleteTodo, fetchTodosForUser, setTodoCompletion } from './todos';
 import { Todo } from './types';
 
-const TodoRow = ({ completed, id, title, userId }: Todo) => {
+const TodoRow = ({ completed, id, title }: Todo) => {
   const dispatch = useAppDispatch();
   const toggleTodo = useCallback(() => {
     dispatch(setTodoCompletion({ id, completed: !completed }));
