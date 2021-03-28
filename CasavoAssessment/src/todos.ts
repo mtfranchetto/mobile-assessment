@@ -76,7 +76,7 @@ const { reducer } = createSlice({
       state.list = [];
     });
     builder.addCase(addTodoForUser.fulfilled, (state, action: PayloadAction<Todo>) => {
-      state.list.push(action.payload);
+      state.list.unshift(action.payload);
     });
     builder.addCase(deleteTodo.pending, (state, action) => {
       state.list = state.list.filter(todo => todo.id !== action.meta.arg);

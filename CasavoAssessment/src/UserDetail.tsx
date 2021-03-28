@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import {
   Button, Linking, ListRenderItemInfo,
-  Text, TextInput, Platform, View,
+  Text, TextInput, Platform, View, KeyboardAvoidingView,
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
@@ -44,7 +44,7 @@ const AddTodoFooter = memo(({ userId }: { userId: number }) => {
   }, [setTodoText]);
 
   return (
-    <>
+    <View style={todosStyles.addContainer}>
       <TextInput
         testID={'todo-input'}
         value={todoText}
@@ -53,7 +53,7 @@ const AddTodoFooter = memo(({ userId }: { userId: number }) => {
         placeholder="E.g. buy coffee"
       />
       <Button title="Add todo" onPress={addTodo} />
-    </>
+    </View>
   );
 });
 
@@ -87,23 +87,26 @@ export const UserDetail = () => {
    * TODO: handle UI when `rejected`
    */
   return loading ? <Loading /> : (
-    <FlatList
-      ListHeaderComponent={() => ( // this should be extracted for proper memoization
-        <>
-          <Text style={usersStyles.detailName}>{user!.name}</Text>
-          <Text style={usersStyles.detailAddress}>{user!.address}</Text>
-          <Text style={usersStyles.detailPhone}>Phone: {user!.phoneNumber}</Text>
-          <View style={usersStyles.actionsContainer}>
-            <Button title="Call" onPress={callUser} />
-            <Button title="Get directions" onPress={openDirections} />
-          </View>
-        </>
-      )}
-      contentContainerStyle={usersStyles.detailContainer}
-      keyExtractor={todo => todo.id}
-      data={todos}
-      renderItem={renderRow}
-      ListFooterComponent={<AddTodoFooter userId={user!.id} />}
-    />
+    <KeyboardAvoidingView behavior="padding" style={todosStyles.keyboard}>
+      <FlatList
+        keyboardShouldPersistTaps="handled"
+        ListHeaderComponent={() => ( // this should be extracted for proper memoization
+          <>
+            <Text style={usersStyles.detailName}>{user!.name}</Text>
+            <Text style={usersStyles.detailAddress}>{user!.address}</Text>
+            <Text style={usersStyles.detailPhone}>Phone: {user!.phoneNumber}</Text>
+            <View style={usersStyles.actionsContainer}>
+              <Button title="Call" onPress={callUser} />
+              <Button title="Get directions" onPress={openDirections} />
+            </View>
+            <AddTodoFooter userId={user!.id} />
+          </>
+        )}
+        contentContainerStyle={usersStyles.detailContainer}
+        keyExtractor={todo => todo.id}
+        data={todos}
+        renderItem={renderRow}
+      />
+    </KeyboardAvoidingView>
   );
 };

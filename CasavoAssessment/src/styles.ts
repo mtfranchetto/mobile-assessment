@@ -15,10 +15,15 @@ export const todosStyles = StyleSheet.create({
     backgroundColor: 'white',
     height: 40,
     borderRadius: 8,
-    marginTop: 24,
     flex: 1,
     padding: 8,
   },
+  addContainer: {
+    marginBottom: 24,
+  },
+  keyboard: {
+    flex: 1,
+  }
 });
 
 export const usersStyles = StyleSheet.create({

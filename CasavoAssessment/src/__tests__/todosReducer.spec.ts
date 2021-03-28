@@ -35,7 +35,7 @@ describe('Given a todosReducer', () => {
   });
 
   describe('when adding a new todo', () => {
-    it('should add it to the bottom of the list', () => {
+    it('should add it to the top of the list', () => {
       const state = subject({
         loading: false,
         rejected: false,
@@ -48,7 +48,7 @@ describe('Given a todosReducer', () => {
       }, '', { userId: 1, title: 'Third todo' }));
 
       expect(state.list).toHaveLength(3);
-      expect(state.list[2]).toEqual({
+      expect(state.list[0]).toEqual({
         completed: false,
         userId: 1,
         id: 4,
