@@ -23,3 +23,9 @@ const mockNavigation = {
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => mockNavigation,
 }));
+
+jest.mock('react-native-location', () => ({
+  configure: () => null,
+  requestPermission: () => null,
+  getLatestLocation: () => null,
+}));
