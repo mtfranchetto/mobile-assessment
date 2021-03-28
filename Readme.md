@@ -1,23 +1,21 @@
-# Mobile developer Assessment
-This assessment is designed to evaluate the technical and organizational skills of a candidate.
+# Casavo mobile assessment
 
-## The exercises
+## Rationale
 
-- [FriendToDo](01-FriendTodo.md)
-- [FriendFinder](02-FriendFinder.md)
+Since the two exercises (TODOs and friends finder) are very similar I decided not to do two separate projects (or screens) but include both under the same views, with a list and the detail.
 
-## FAQ
-**Q**: Should I develop it for Android and iOS or use a multiplatform framework?
+For the dependency/services management I didn't setup anything particular for the simple use case. For a possible evolution of the code I would go with an IOC container like [inversify](https://inversify.io/) that will allow a greater control over the dependencies of the application.
 
-**A**: You can choose a platform and develop the app for it, the support of both Android and iOS is not mandatory.
+With more time I would have written some services for GPS and linking like I did for the HTTP client to allow a proper inversion of control for the functions I wrote, and open up the possibility to future use cases like decorators over services (e.g. adding authentication over the http client).
 
-## What is being tested?
-- Application architecture
-- Use of programming patterns
-- Use of unit / UX test
-- Overall user experience in the application.
+## Demo
 
-## Time requirements
-After sending the challenge we'll wait 1 week to hear back from you. Feel free to ask us for any clarification if you need it.
+![Demo GIF](./demo.gif)
 
-It's okay to leave TODOs or mocks in the code, just explain what you would still finish there if you had more time.
+## What could come next
+
+- localization with [i18next](https://www.i18next.com/)
+- inversify integration
+- better detail using [bottom-sheet](https://gorhom.github.io/react-native-bottom-sheet/) for fluid navigation
+- add error feedbacks when operations on todos fails or no apps are available to perform certain operations (e.g. open map)
+- e2e testing with detox

@@ -43,6 +43,9 @@ const AddTodoFooter = memo(({ userId }: { userId: number }) => {
     setTodoText(newText);
   }, [setTodoText]);
 
+  /**
+   * TODO: handle form submit also using return key
+   */
   return (
     <View style={todosStyles.addContainer}>
       <TextInput
