@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import {
   Button, Linking, ListRenderItemInfo,
-  Text, TextInput, Platform,
+  Text, TextInput, Platform, View,
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
@@ -20,11 +20,11 @@ const TodoRow = ({ completed, id, title }: Todo) => {
   }, [id]);
 
   return (
-    <>
-      <Text style={todosStyles.title}>{title}</Text>
+    <View style={todosStyles.row}>
       <CheckBox value={completed} onValueChange={toggleTodo} />
+      <Text style={todosStyles.title}>{title}</Text>
       <Button title={'X'} onPress={deleteCallback} />
-    </>
+    </View>
   )
 }
 
@@ -48,6 +48,8 @@ const AddTodoFooter = memo(({ userId }: { userId: number }) => {
         testID={'todo-input'}
         value={todoText}
         onChangeText={updateTodoText}
+        style={todosStyles.input}
+        placeholder="E.g. buy coffee"
       />
       <Button title="Add todo" onPress={addTodo} />
     </>
@@ -85,11 +87,15 @@ export const UserDetail = () => {
       ListHeaderComponent={() => ( // this should be extracted for proper memoization
         <>
           <Text style={usersStyles.detailName}>{user!.name}</Text>
-          <Text style={usersStyles.detailName}>{user!.address}</Text>
-          <Button title="Call" onPress={callUser} />
-          <Button title="Get directions" onPress={openDirections} />
+          <Text style={usersStyles.detailAddress}>{user!.address}</Text>
+          <Text style={usersStyles.detailPhone}>Phone: {user!.phoneNumber}</Text>
+          <View style={usersStyles.actionsContainer}>
+            <Button title="Call" onPress={callUser} />
+            <Button title="Get directions" onPress={openDirections} />
+          </View>
         </>
       )}
+      contentContainerStyle={usersStyles.detailContainer}
       keyExtractor={todo => todo.id}
       data={todos}
       renderItem={renderRow}
