@@ -5,3 +5,12 @@ export const todosStyles = StyleSheet.create({
     color: 'black',
   },
 });
+
+export const usersStyles = StyleSheet.create({
+  listName: {
+    color: 'black',
+  },
+  detailName: {
+    color: 'black',
+  }
+});

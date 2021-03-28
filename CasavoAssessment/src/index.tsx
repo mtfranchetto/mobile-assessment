@@ -8,7 +8,7 @@ import { UsersList } from './UsersList';
 const Stack = createStackNavigator();
 
 const usersListOptions = {
-  title: 'Users',
+  title: 'Your friends',
 };
 const userDetailOptions = {
   title: 'Detail',

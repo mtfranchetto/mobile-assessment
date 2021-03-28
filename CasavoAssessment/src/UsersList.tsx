@@ -7,6 +7,7 @@ import { User } from './types';
 import { fetchUsersList, selectUser } from './users';
 import { USER_DETAIL_SCREEN } from './constants';
 import { fetchUserPosition } from './gps';
+import { usersStyles } from './styles';
 
 type UserRowProps = { user: User, onPress: (user: User) => void };
 
@@ -16,7 +17,11 @@ const UserRow = ({ user, onPress }: UserRowProps) => {
   }, [onPress, user]);
   return (
     <TouchableOpacity onPress={cb} testID={`users-${user.id}`}>
-      <Text style={{ color: 'black' }}>{user.name}</Text>
+      <Text style={usersStyles.listName}>{user.name}</Text>
+      <Text style={usersStyles.listName}>{user.address}</Text>
+      <Text style={usersStyles.listName}>
+        {user.distance ? `${user.distance.toFixed(2)} km` : 'N/A'}
+      </Text>
     </TouchableOpacity>
   );
 }
