@@ -20,6 +20,7 @@ With more time I would have written some services for GPS and linking like I did
 
 - localization with [i18next](https://www.i18next.com/)
 - inversify integration
+- tune better eslint
 - better detail using [bottom-sheet](https://gorhom.github.io/react-native-bottom-sheet/) for fluid navigation
 - add error feedbacks when operations on todos fails or no apps are available to perform certain operations (e.g. open map)
 - e2e testing with detox
